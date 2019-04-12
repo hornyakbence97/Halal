@@ -43,6 +43,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BL1\State.cs" />
+    <Compile Include="BL2\ExtensionM.cs" />
+    <Compile Include="BL2\HillClimbing.cs" />
+    <Compile Include="BL2\OptimalizationTransform.cs" />
+    <Compile Include="BL2\Solution.cs" />
+    <Compile Include="BL2\WorkerMan.cs" />
+    <Compile Include="BL2\WorkToDo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
