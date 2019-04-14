@@ -39,7 +39,38 @@ namespace Halal.BL2
                 fitnes += GetFitnessForSolutionPair(item, solution.SolutionPairs);
             }
 
+            var wms = solution.SolutionPairs.GroupBy(x => x.WorkerMan);
+            int overWork = 0;
+            foreach (var item in wms)
+            {
+                overWork += GetOverWorkAllTimeForWorker(item.Key, solution.SolutionPairs);
+            }
+
+            if (overWork > 0)
+            {
+                fitnes += overWork * 10;
+            }
+
             return fitnes;
+        }
+
+        private int GetOverWorkAllTimeForWorker(WorkerMan worker, List<SolutionPair> solutionPairs)
+        {
+            int all = 0;
+            foreach (var item in solutionPairs)
+            {
+                if (item.WorkerMan == worker)
+                {
+                    all += worker.WorkingTimeByComplexity(item.WorkToDo.Complexity);
+                }
+            }
+
+            if (worker.WorkingMinutes < all)
+            {
+                return all - worker.WorkingMinutes;
+            }
+
+            return 0;
         }
 
         private int GetFitnessForSolutionPair(SolutionPair pair, List<SolutionPair> solutionPairs)
@@ -47,19 +78,19 @@ namespace Halal.BL2
             WorkerMan workerMan = pair.WorkerMan;
             WorkToDo workToDo = pair.WorkToDo;
 
-            int maxWork = workerMan.WorkingMinutes;
-            var thisMenAllWorkTime = 
-                solutionPairs
-                .Where(x => x.WorkerMan == workerMan)
-                .Select(x => x.WorkerMan.WorkingTimeByComplexity(x.WorkToDo.Complexity)).Sum();
-            if (thisMenAllWorkTime > maxWork)
-            {
-                return ((workerMan.WorkingTimeByComplexity(workToDo.Complexity) / workerMan.Quality)+1) * 1000; //ha nem fér bele a munka idejébe, akkor durván lehúzzuk
-            }
-            else
-            {
+            //int maxWork = workerMan.WorkingMinutes;
+            //var thisMenAllWorkTime = 
+            //    solutionPairs
+            //    .Where(x => x.WorkerMan == workerMan)
+            //    .Select(x => x.WorkerMan.WorkingTimeByComplexity(x.WorkToDo.Complexity)).Sum();
+            //if (thisMenAllWorkTime > maxWork)
+            //{
+            //    return ((workerMan.WorkingTimeByComplexity(workToDo.Complexity) / workerMan.Quality)+1) * 1000; //ha nem fér bele a munka idejébe, akkor durván lehúzzuk
+            //}
+            //else
+            //{
                 return (workerMan.WorkingTimeByComplexity(workToDo.Complexity) / workerMan.Quality); // idő/minőség = fitnessz
-            }
+          //  }
         }
 
 
@@ -90,6 +121,7 @@ namespace Halal.BL2
         public Solution HillClimbing()
         {
             Solution solution = InitializeStart();
+            solution.ConsoleWrite();
             int currentIteration = 0;
             while (currentIteration <= this.maxIterations)
             {
@@ -99,16 +131,13 @@ namespace Halal.BL2
                 if (fNew < fCurrent)
                 {
                     solution = newSolution;
-                    //fCurrent = fNew;
+                   
 
-                    if (currentIteration % 1 == 0)
-                    {
-                        //Console.Clear();
                         Console.WriteLine(currentIteration);
                         Console.WriteLine(solution.ToString());
                         solution.ConsoleWrite();
                         Console.WriteLine("Fitnesz: " + fNew);
-                    }
+                    
                 }
 
                 currentIteration++;

@@ -54,7 +54,7 @@ namespace Halal
                 new WorkerMan() {Name = "8", Quality = 1, WorkingMinutes = 90}
             };
 
-            OptimalizationTransform optimalizationTransform = new OptimalizationTransform(workToDos, workerMens, 1000000, 7);
+            OptimalizationTransform optimalizationTransform = new OptimalizationTransform(workToDos, workerMens, 1000000, 155);
             var solution = optimalizationTransform.HillClimbing();
 
 
