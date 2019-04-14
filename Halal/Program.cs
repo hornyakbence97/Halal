@@ -4,6 +4,8 @@ using Halal.BL2.Interfaces;
 using Halal.GeneticAlgorithm;
 using Halal.GeneticAlgorithm.Interfaces;
 using Halal.Interfaces;
+using Halal.ParticleSwarm;
+using Halal.ParticleSwarm.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -67,9 +69,13 @@ namespace Halal
 
 
 
-            IGeneticAlgorithmProblem geneticAlgorithmProblem = new GeneticAlgorithmProblem(workToDos, workerMens, 50000000);
-            ISolver genSolver = new GeneticAlgorithm.GeneticAlgorithm(geneticAlgorithmProblem);
-            ISolution genSolution = genSolver.Start();
+            //IGeneticAlgorithmProblem geneticAlgorithmProblem = new GeneticAlgorithmProblem(workToDos, workerMens, 50000000);
+            //ISolver genSolver = new GeneticAlgorithm.GeneticAlgorithm(geneticAlgorithmProblem);
+            //ISolution genSolution = genSolver.Start();
+
+            IParticleSwarmProblem particleSwarmProblem = new ParticleSwarmProblem(workToDos, workerMens, 1000, 200);
+            ISolver psSolver = new ParticleSwarmOptimaziation(particleSwarmProblem);
+            ISolution psSol = psSolver.Start();
 
 
             Console.ReadLine();

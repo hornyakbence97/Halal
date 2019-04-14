@@ -1,0 +1,21 @@
+﻿using Halal.BL2;
+using Halal.Interfaces;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Halal.ParticleSwarm.Interfaces
+{
+    interface IParticleSwarmProblem
+    {
+        int Fitness(ISolutionPosSpeed solution);
+        List<ISolutionPosSpeed> InitializeStart();
+        bool CanStop();
+        void Evaluation(List<ISolutionPosSpeed> population, ISolutionPosSpeed globalOptimum);
+        void CalcualteVelocy(List<ISolutionPosSpeed> population, ISolutionPosSpeed globalOptimum);
+        List<WorkerMan> GetWorkerMans();
+        List<WorkToDo> GetWorkToDos();
+    }
+}
