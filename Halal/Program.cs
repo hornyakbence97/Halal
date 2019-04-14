@@ -1,5 +1,7 @@
 ﻿using Halal.BL1;
 using Halal.BL2;
+using Halal.BL2.Interfaces;
+using Halal.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -54,11 +56,14 @@ namespace Halal
                 new WorkerMan() {Name = "8", Quality = 1, WorkingMinutes = 90}
             };
 
-            OptimalizationTransform optimalizationTransform = new OptimalizationTransform(workToDos, workerMens, 1000000, 155);
-            var solution = optimalizationTransform.HillClimbing();
+            // OptimalizationTransform optimalizationTransform = new OptimalizationTransform(workToDos, workerMens, 1000000, 155);
+            // var solution = optimalizationTransform.HillClimbing();
 
+            IHillClimbProblem problem = new HillClimbingProblem(workToDos, workerMens, 1000000);
+            ISolver solver = new HillClimbing(problem, 155);
+            ISolution solution = solver.Start();
 
-
+            
 
             Console.ReadLine();
         }

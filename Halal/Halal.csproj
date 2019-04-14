@@ -44,12 +44,19 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BL1\State.cs" />
-    <Compile Include="BL2\ExtensionM.cs" />
-    <Compile Include="BL2\HillClimbing.cs" />
-    <Compile Include="BL2\OptimalizationTransform.cs" />
-    <Compile Include="BL2\Solution.cs" />
-    <Compile Include="BL2\WorkerMan.cs" />
-    <Compile Include="BL2\WorkToDo.cs" />
+    <Compile Include="GeneticAlgorithm\GeneticAlgorithm.cs" />
+    <Compile Include="GeneticAlgorithm\Interfaces\IGeneticAlgorithmProblem.cs" />
+    <Compile Include="HillClimb\ExtensionM.cs" />
+    <Compile Include="HillClimb\HillClimbing.cs" />
+    <Compile Include="HillClimb\Interfaces\IHillClimbProblem.cs" />
+    <Compile Include="Interfaces\ISolution.cs" />
+    <Compile Include="Interfaces\ISolutionPair.cs" />
+    <Compile Include="Interfaces\ISolver.cs" />
+    <Compile Include="HillClimb\HillClimbingProblem.cs" />
+    <Compile Include="HillClimb\Solution.cs" />
+    <Compile Include="HillClimb\SolutionPair.cs" />
+    <Compile Include="HillClimb\WorkerMan.cs" />
+    <Compile Include="HillClimb\WorkToDo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
