@@ -10,8 +10,13 @@ namespace Halal.GeneticAlgorithm.Interfaces
     interface IGeneticAlgorithmProblem
     {
         int Fitness(ISolution solution);
-        IEnumerable<ISolution> InitializeStart();
-        ISolution GetSolutionAtDistance(ISolution solution, int distance);
+        IEnumerable<ISolution> InitializeStart(int numberOfInitParents);
+        
         bool CanStop();
+        IEnumerable<IEvaulationElement> Evaulate(IEnumerable<ISolution> population);
+        ParentsAndMatingPool SelectParents(IEnumerable<ISolution> oldPaents, int numberOfSelectParents);
+        IEnumerable<ISolution> Selection(List<ISolution> matingPool, int numberOfParents);
+        ISolution CrossOver(IEnumerable<ISolution> parents);
+        ISolution Mutate(ISolution solution);
     }
 }

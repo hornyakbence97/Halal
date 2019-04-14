@@ -44,8 +44,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BL1\State.cs" />
+    <Compile Include="GeneticAlgorithm\EvaluationElement.cs" />
     <Compile Include="GeneticAlgorithm\GeneticAlgorithm.cs" />
+    <Compile Include="GeneticAlgorithm\GeneticAlgorithmProblem.cs" />
+    <Compile Include="GeneticAlgorithm\Interfaces\IEvaulationElement.cs" />
     <Compile Include="GeneticAlgorithm\Interfaces\IGeneticAlgorithmProblem.cs" />
+    <Compile Include="GeneticAlgorithm\Interfaces\IParentsAndMAtingPool.cs" />
+    <Compile Include="GeneticAlgorithm\ParentsAndMatingPool.cs" />
     <Compile Include="HillClimb\ExtensionM.cs" />
     <Compile Include="HillClimb\HillClimbing.cs" />
     <Compile Include="HillClimb\Interfaces\IHillClimbProblem.cs" />

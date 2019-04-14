@@ -1,6 +1,8 @@
 ﻿using Halal.BL1;
 using Halal.BL2;
 using Halal.BL2.Interfaces;
+using Halal.GeneticAlgorithm;
+using Halal.GeneticAlgorithm.Interfaces;
 using Halal.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -59,11 +61,16 @@ namespace Halal
             // OptimalizationTransform optimalizationTransform = new OptimalizationTransform(workToDos, workerMens, 1000000, 155);
             // var solution = optimalizationTransform.HillClimbing();
 
-            IHillClimbProblem problem = new HillClimbingProblem(workToDos, workerMens, 1000000);
-            ISolver solver = new HillClimbing(problem, 155);
-            ISolution solution = solver.Start();
+            //IHillClimbProblem problem = new HillClimbingProblem(workToDos, workerMens, 1000000);
+            //ISolver solver = new HillClimbing(problem, 155);
+            //ISolution solution = solver.Start();
 
-            
+
+
+            IGeneticAlgorithmProblem geneticAlgorithmProblem = new GeneticAlgorithmProblem(workToDos, workerMens, 50000000);
+            ISolver genSolver = new GeneticAlgorithm.GeneticAlgorithm(geneticAlgorithmProblem);
+            ISolution genSolution = genSolver.Start();
+
 
             Console.ReadLine();
         }
