@@ -20,16 +20,16 @@ namespace Halal.ParticleSwarm
         public ISolution Start()
         {
             List<ISolutionPosSpeed> population = problem.InitializeStart();
-            ISolutionPosSpeed globalOptimum = population.FirstOrDefault();
-            problem.Evaluation(population, globalOptimum);
+            ISolutionPosSpeed globalOptimum = population.FirstOrDefault().LocalOptimum;
+            population = problem.Evaluation(population, ref globalOptimum);
             while (!problem.CanStop())
             {
-                problem.CalcualteVelocy(population, globalOptimum);
+                population = problem.CalcualteVelocy(population, globalOptimum);
                 foreach (var item in population)
                 {
-                    item.Position.AddSpeed(item.Speed);
+                   item.Position = item.Position.AddVelocy(item.Speed);
                 }
-                problem.Evaluation(population, globalOptimum);
+                population = problem.Evaluation(population, ref globalOptimum);
 
             }
 

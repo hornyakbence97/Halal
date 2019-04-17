@@ -69,11 +69,11 @@ namespace Halal
 
 
 
-            //IGeneticAlgorithmProblem geneticAlgorithmProblem = new GeneticAlgorithmProblem(workToDos, workerMens, 50000000);
+            //IGeneticAlgorithmProblem geneticAlgorithmProblem = new GeneticAlgorithmProblem(workToDos, workerMens, 500);
             //ISolver genSolver = new GeneticAlgorithm.GeneticAlgorithm(geneticAlgorithmProblem);
             //ISolution genSolution = genSolver.Start();
 
-            IParticleSwarmProblem particleSwarmProblem = new ParticleSwarmProblem(workToDos, workerMens, 1000, 200);
+            IParticleSwarmProblem particleSwarmProblem = new ParticleSwarmProblem(workToDos, workerMens, 100, 150);
             ISolver psSolver = new ParticleSwarmOptimaziation(particleSwarmProblem);
             ISolution psSol = psSolver.Start();
 

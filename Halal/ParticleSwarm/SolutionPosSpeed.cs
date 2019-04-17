@@ -11,34 +11,50 @@ namespace Halal.ParticleSwarm
 {
     class SolutionPosSpeed : ISolutionPosSpeed
     {
-        public IPosition Position { get; set; }
-        public ISpeed Speed { get; set; }
+        static Random rnd = new Random();
+        public IPositionPS Position { get; set; }
+        public IVelocy Speed { get; set; }
         public ISolutionPosSpeed LocalOptimum { get; set; }
 
 
-        public SolutionPosSpeed(int numberOfJobs, int numberOfWorkers)
+        public SolutionPosSpeed(int numberOfJobs, int numberOfWorkers, SolutionPosSpeed localOptimum)
         {
-            Position = new Position((int)Math.Ceiling(Math.Pow(numberOfWorkers, numberOfJobs)));
-            Speed = new Speed(Position.GetCurrent() % 25);
-            LocalOptimum = this;
+            Position = new PositionPS(numberOfJobs, numberOfWorkers);
+            Speed = new Velocy(numberOfJobs, numberOfWorkers);
+            LocalOptimum = localOptimum;
 
+        }
+        public SolutionPosSpeed(IPositionPS position, IVelocy velocy)
+        {
+            this.Position = position;
+            this.Speed = velocy;
         }
 
         public ISolution GetSolution(List<WorkToDo> workToDos, List<WorkerMan> workerMens)
         {
-            Solution solution = new Solution();
-            int workers = workerMens.Count;
-            int work = workToDos.Count;
+            //Solution solution = new Solution();
+            //int workers = workerMens.Count;
+            //int work = workToDos.Count;
 
-            for (int i = 0; i < work; i++)
+            //for (int i = 0; i < work; i++)
+            //{
+            //    int cu = this.Position.GetCurrent() % i;
+            //    while (cu >= workers)
+            //    {
+            //        cu -= workers;
+            //    }
+            //    int index = cu;
+            //    solution.SolutionPairs.Add(new SolutionPair() { WorkerMan = workerMens.ElementAt(index), WorkToDo = workToDos.ElementAt(i) });
+            //}
+
+            //return solution;
+
+            Solution solution = new Solution();
+            PositionPS pos = (this.Position as PositionPS);
+            int[] positions = pos.GetPosition();
+            for (int i = 0; i < positions.Length; i++)
             {
-                int cu = this.Position.GetCurrent() % i;
-                while (cu >= workers)
-                {
-                    cu -= workers;
-                }
-                int index = cu;
-                solution.SolutionPairs.Add(new SolutionPair() { WorkerMan = workerMens.ElementAt(index), WorkToDo = workToDos.ElementAt(i) });
+                solution.SolutionPairs.Add(new SolutionPair() { WorkerMan = workerMens.ElementAt(positions[i]), WorkToDo = workToDos.ElementAt(i) });
             }
 
             return solution;
@@ -46,25 +62,44 @@ namespace Halal.ParticleSwarm
 
         public ISolution GetSolution(IParticleSwarmProblem problem)
         {
-            Solution solution = new Solution() { SolutionPairs = new List<ISolutionPair>() };
-            int workers = problem.GetWorkerMans().Count;
-            int work = problem.GetWorkToDos().Count;
 
-            for (int i = 0; i < work; i++)
+            var wms = problem.GetWorkerMans();
+            var wtd = problem.GetWorkToDos();
+
+            Solution solution = new Solution() { SolutionPairs = new List<ISolutionPair>() };
+            PositionPS pos = (this.Position as PositionPS);
+            int[] positions = pos.GetPosition();
+            for (int i = 0; i < positions.Length; i++)
             {
-                int cu = this.Position.GetCurrent() / (i+1);
-                cu += this.Position.GetCurrent();
-                while (cu >= workers)
-                {
-                    cu -= workers;
-                }
-                int index = cu;
-                WorkerMan wm = problem.GetWorkerMans().ElementAt(index);
-                WorkToDo wtd = problem.GetWorkToDos().ElementAt(i);
-                solution.SolutionPairs.Add(new SolutionPair() { WorkerMan = wm, WorkToDo = wtd });
+                solution.SolutionPairs.Add(new SolutionPair() { WorkerMan = wms.ElementAt(positions[i]), WorkToDo = wtd.ElementAt(i) });
             }
 
             return solution;
+
+
+            //Solution solution = new Solution() { SolutionPairs = new List<ISolutionPair>() };
+            //int workers = problem.GetWorkerMans().Count;
+            //int work = problem.GetWorkToDos().Count;
+
+            //for (int i = 0; i < work; i++)
+            //{
+            //    int cu = this.Position.GetCurrent() / (i+1);
+            //    cu += this.Position.GetCurrent();
+            //    if (cu < 0)
+            //    {
+            //        cu = -1 * cu;
+            //    }
+            //    while (cu >= workers)
+            //    {
+            //        cu -= workers;
+            //    }
+            //    int index = cu;
+            //    WorkerMan wm = problem.GetWorkerMans().ElementAt(index);
+            //    WorkToDo wtd = problem.GetWorkToDos().ElementAt(i);
+            //    solution.SolutionPairs.Add(new SolutionPair() { WorkerMan = wm, WorkToDo = wtd });
+            //}
+
+            //return solution;
         }
 
     }

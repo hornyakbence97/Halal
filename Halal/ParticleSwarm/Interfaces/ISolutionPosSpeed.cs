@@ -10,8 +10,8 @@ namespace Halal.ParticleSwarm.Interfaces
 {
     interface ISolutionPosSpeed
     {
-        IPosition Position { get; set; }
-        ISpeed Speed { get; set; }
+        IPositionPS Position { get; set; }
+        IVelocy Speed { get; set; }
         ISolution GetSolution(List<WorkToDo> workToDos, List<WorkerMan> workerMens);
         ISolution GetSolution(IParticleSwarmProblem problem);
         ISolutionPosSpeed LocalOptimum { get; set; }

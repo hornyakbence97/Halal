@@ -13,8 +13,8 @@ namespace Halal.ParticleSwarm.Interfaces
         int Fitness(ISolutionPosSpeed solution);
         List<ISolutionPosSpeed> InitializeStart();
         bool CanStop();
-        void Evaluation(List<ISolutionPosSpeed> population, ISolutionPosSpeed globalOptimum);
-        void CalcualteVelocy(List<ISolutionPosSpeed> population, ISolutionPosSpeed globalOptimum);
+        List<ISolutionPosSpeed> Evaluation(List<ISolutionPosSpeed> population, ref ISolutionPosSpeed globalOptimum);
+        List<ISolutionPosSpeed> CalcualteVelocy(List<ISolutionPosSpeed> population, ISolutionPosSpeed globalOptimum);
         List<WorkerMan> GetWorkerMans();
         List<WorkToDo> GetWorkToDos();
     }

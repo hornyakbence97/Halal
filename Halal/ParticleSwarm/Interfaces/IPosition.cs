@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace Halal.ParticleSwarm.Interfaces
 {
-    interface IPosition
-    {
-        ISpeed Minus(IPosition position);
-        IPosition AddSpeed(ISpeed speed);
-        void SetMaxXmultipleY(int max);
-        int GetCurrent();
-    }
+    //interface IPosition
+    //{
+    //    ISpeed Minus(IPosition position);
+    //    IPosition AddSpeed(ISpeed speed);
+    //    //void SetMaxXmultipleY(int max);
+    //    int GetCurrent();
+    //}
 }

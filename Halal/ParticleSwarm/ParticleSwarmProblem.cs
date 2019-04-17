@@ -26,22 +26,30 @@ namespace Halal.ParticleSwarm
             this.random = new Random();
         }
 
-        public void CalcualteVelocy(List<ISolutionPosSpeed> population, ISolutionPosSpeed globalOptimum)
+        public List<ISolutionPosSpeed> CalcualteVelocy(List<ISolutionPosSpeed> population, ISolutionPosSpeed globalOptimum)
         {
+            List<ISolutionPosSpeed> newPop = new List<ISolutionPosSpeed>();
             foreach (var item in population)
             {
-                var rp = random.NextDouble(); //0...1
-                var rg = random.NextDouble();
+                var rp = random.NextDouble() * 1001; //0...1
+                var rg = random.NextDouble() *1001;
 
-                double w = 0.2;
-                double omegap = 0.3;
-                double omegag = 0.4;
+                double w = 4;
+                double omegap = 5;
+                double omegag = 4;
 
-                item.Speed = item.Speed
+                var temp = item;
+                temp.Speed = temp.Speed
                     .Multiple(w)
                     .Add(item.LocalOptimum.Position.Minus(item.Position).Multiple(omegap).Multiple(rp))
                     .Add(globalOptimum.Position.Minus(item.Position).Multiple(omegag).Multiple(rg));
+
+                newPop.Add(new SolutionPosSpeed(
+                    new PositionPS((temp.Position as PositionPS).GetPosition(), this.workerMens.Length),
+                    new Velocy(this.workerMens.Length, (temp.Speed as Velocy).GetVelocy()))
+                {  LocalOptimum = temp.LocalOptimum});
             }
+            return newPop;
         }
 
         public bool CanStop()
@@ -54,22 +62,38 @@ namespace Halal.ParticleSwarm
             return true;
         }
 
-        public void Evaluation(List<ISolutionPosSpeed> population, ISolutionPosSpeed globalOptimum)
+        public List<ISolutionPosSpeed> Evaluation(List<ISolutionPosSpeed> population, ref ISolutionPosSpeed globalOptimum)
         {
+            List<ISolutionPosSpeed> newPop = new List<ISolutionPosSpeed>(); 
             foreach (var item in population)
             {
                 var temp = item;
                 int fitnesItem = this.Fitness(temp);
                 if (fitnesItem < this.Fitness(temp.LocalOptimum))
                 {
-                    
-                    temp.LocalOptimum = temp;
+
+                    temp.LocalOptimum = new SolutionPosSpeed(
+                        new PositionPS((temp.Position as PositionPS).GetPosition(), this.workerMens.Length),
+                        new Velocy(this.workerMens.Length, (temp.Speed as Velocy).GetVelocy())
+                        );
+                   // Console.WriteLine("Fitnessz kisebb, mint a lokális optimumé, Round" + this.maxIterations);
                 }
                 if (fitnesItem < this.Fitness(globalOptimum))
                 {
-                    globalOptimum = temp;
+                    Console.WriteLine("Fitnessz kisebb, mint a GLOBÁLIS optimumé, Round: " + this.maxIterations);
+                    globalOptimum = new SolutionPosSpeed(
+                        new PositionPS((temp.Position as PositionPS).GetPosition(), this.workerMens.Length),
+                        new Velocy(this.workerMens.Length, (temp.Speed as Velocy).GetVelocy())
+                        );
+
                 }
+
+                newPop.Add(new SolutionPosSpeed(
+    new PositionPS((temp.Position as PositionPS).GetPosition(), this.workerMens.Length),
+    new Velocy(this.workerMens.Length, (temp.Speed as Velocy).GetVelocy()))
+                { LocalOptimum = temp.LocalOptimum });
             }
+            return newPop;
         }
 
         public int Fitness(ISolutionPosSpeed solutionIn)
@@ -103,8 +127,15 @@ namespace Halal.ParticleSwarm
             List<ISolutionPosSpeed> t = new List<ISolutionPosSpeed>();
             for (int i = 0; i < this.numberOfPopulation; i++)
             {
-                ISolutionPosSpeed te = new SolutionPosSpeed(this.workToDos.Length, this.workerMens.Length);
-                t.Add(te);                
+                ISolutionPosSpeed te = new SolutionPosSpeed(this.workToDos.Length, this.workerMens.Length, null);
+                t.Add(te);             
+            }
+
+            foreach (var item in t)
+            {
+                //var ran = random.Next(t.Count);
+                var localOptimum = new SolutionPosSpeed(this.workToDos.Length, this.workerMens.Length, null);
+                item.LocalOptimum = localOptimum;
             }
             return t;
         }
