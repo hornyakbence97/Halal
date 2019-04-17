@@ -69,6 +69,8 @@ namespace Halal.ParticleSwarm
             {
                 var temp = item;
                 int fitnesItem = this.Fitness(temp);
+
+                //TODO Megkérdezni, hogy erre miért van szükség, felesleg munka csupán!!!
                 if (fitnesItem < this.Fitness(temp.LocalOptimum))
                 {
 
@@ -76,8 +78,9 @@ namespace Halal.ParticleSwarm
                         new PositionPS((temp.Position as PositionPS).GetPosition(), this.workerMens.Length),
                         new Velocy(this.workerMens.Length, (temp.Speed as Velocy).GetVelocy())
                         );
-                   // Console.WriteLine("Fitnessz kisebb, mint a lokális optimumé, Round" + this.maxIterations);
+                    Console.WriteLine("Fitnessz kisebb, mint a lokális optimumé, Round" + this.maxIterations);
                 }
+
                 if (fitnesItem < this.Fitness(globalOptimum))
                 {
                     Console.WriteLine("Fitnessz kisebb, mint a GLOBÁLIS optimumé, Round: " + this.maxIterations);

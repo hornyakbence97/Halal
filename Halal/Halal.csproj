@@ -64,17 +64,12 @@
     <Compile Include="HillClimb\WorkToDo.cs" />
     <Compile Include="ParticleSwarm\Interfaces\IParticleSwarmProblem.cs" />
     <Compile Include="ParticleSwarm\Interfaces\IPositionPS.cs" />
-    <Compile Include="ParticleSwarm\Interfaces\IPosition.cs" />
     <Compile Include="ParticleSwarm\Interfaces\ISolutionPosSpeed.cs" />
     <Compile Include="ParticleSwarm\Interfaces\IVelocy.cs" />
-    <Compile Include="ParticleSwarm\Interfaces\ISpeed.cs" />
-    <Compile Include="ParticleSwarm\Interfaces\IVectorSolution.cs" />
     <Compile Include="ParticleSwarm\ParticleSwarmOptimaziation.cs" />
     <Compile Include="ParticleSwarm\ParticleSwarmProblem.cs" />
-    <Compile Include="ParticleSwarm\Position.cs" />
     <Compile Include="ParticleSwarm\PositionPS.cs" />
     <Compile Include="ParticleSwarm\SolutionPosSpeed.cs" />
-    <Compile Include="ParticleSwarm\Speed.cs" />
     <Compile Include="ParticleSwarm\Velocy.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

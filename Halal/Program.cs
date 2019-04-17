@@ -63,15 +63,15 @@ namespace Halal
             // OptimalizationTransform optimalizationTransform = new OptimalizationTransform(workToDos, workerMens, 1000000, 155);
             // var solution = optimalizationTransform.HillClimbing();
 
-            //IHillClimbProblem problem = new HillClimbingProblem(workToDos, workerMens, 1000000);
-            //ISolver solver = new HillClimbing(problem, 155);
-            //ISolution solution = solver.Start();
+            IHillClimbProblem problem = new HillClimbingProblem(workToDos, workerMens, 100);
+            ISolver solver = new HillClimbing(problem, 155);
+            ISolution solution = solver.Start();
 
 
 
-            //IGeneticAlgorithmProblem geneticAlgorithmProblem = new GeneticAlgorithmProblem(workToDos, workerMens, 500);
-            //ISolver genSolver = new GeneticAlgorithm.GeneticAlgorithm(geneticAlgorithmProblem);
-            //ISolution genSolution = genSolver.Start();
+            IGeneticAlgorithmProblem geneticAlgorithmProblem = new GeneticAlgorithmProblem(workToDos, workerMens, 100);
+            ISolver genSolver = new GeneticAlgorithm.GeneticAlgorithm(geneticAlgorithmProblem);
+            ISolution genSolution = genSolver.Start();
 
             IParticleSwarmProblem particleSwarmProblem = new ParticleSwarmProblem(workToDos, workerMens, 100, 150);
             ISolver psSolver = new ParticleSwarmOptimaziation(particleSwarmProblem);
